@@ -31,6 +31,11 @@ namespace SoccerGame
             game.CheckTime();
             */
             game.PlayGame();
+            Position position = Position.Forward;
+            Console.WriteLine(position);
+            Console.ReadKey();
+            Player player = new Player(position, 6, "Harry", "Stiles", "13");
+            Console.WriteLine(player.PlayerNumber + "\n" + player.FName);
         }
     }
 }

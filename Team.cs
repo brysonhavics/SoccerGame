@@ -24,10 +24,10 @@ namespace SoccerGame
     {
         public Team Home { get; set; }
         public Team Away { get; set; }
-        public int HomeGoals { get; set; }
-        public int AwayGoals { get; set; }
-        public int HomeCards { get; set; }
-        public int AwayCards { get; set; }
+        public int HomeGoals { get; set; } = 0;
+        public int AwayGoals { get; set; } = 0;
+        public int HomeCards { get; set; } = 0;
+        public int AwayCards { get; set; } = 0;
         public int Time { get; set; } = 90;
         public bool GameOver { get; set; } = false;
 
@@ -112,6 +112,7 @@ namespace SoccerGame
         {
             //Random eventChance = new Random();
             //int home = eventChance.Next(0, 15);
+            
             //Random eventChanceComparison = new Random();
             //int away = eventChanceComparison.Next(0, 10);
             if (home == 1)
@@ -167,12 +168,13 @@ namespace SoccerGame
 
         public void PlayGame()
         {
+            Random eventChance = new Random(); 
             bool isPlaying = false;
             while (!isPlaying)
             {
-                Random eventChance = new Random();
-                int num = eventChance.Next(0, 15);
-                EventChecker(num);
+                //Random eventChance = new Random();
+                //int num = eventChance.Next(0, 15);
+                EventChecker(eventChance.Next(0, 15));
                 CheckTime();
                 isPlaying = GameOver;
             }
