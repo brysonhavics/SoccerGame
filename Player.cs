@@ -11,17 +11,15 @@ namespace SoccerGame
     {
         public Position PlayerPosition { get; set; }
         public int PowerRanking { get; set; }
-        public string FName { get; set; }
-        public string LName { get; set; }
+        public string FullName { get; set; }
         public string PlayerNumber { get; set; }
 
         public Player() { }
-        public Player(Position playerPosition, int powerRanking, string fName, string lName, string playerNumber)
+        public Player(Position playerPosition, int powerRanking, string fullName, string playerNumber)
         {
             PlayerPosition = playerPosition;
             PowerRanking = powerRanking;
-            FName = fName;
-            LName = lName;
+            FullName = fullName;
             PlayerNumber = playerNumber;
         }
 

@@ -2,40 +2,181 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SoccerGame
 {
     public class ProgramUI
-    {
+    {     
         public ProgramUI() { }
 
         public void Run()
         {
-            Seeding();
-            //Menu();
+            TeamRepository _teams = Seeding();
+            Menu(_teams);
+        }
+        
+        public void Menu(TeamRepository _teams)
+        {
+            bool continueToRun = true;
+            while (continueToRun)
+            {
+                Console.Clear();
+                // \n = new line = CR + LF
+                // CR = Carriage Return
+                // LF = Line Feed
+                Console.WriteLine("Menu:\n" +
+                    "1. Start a new game\n" +
+                    "2. Display team records\n" +
+                    "3. Select an exsisting team\n" +
+                    "4. Create a new team\n" +
+                    "5. Exit");
+
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        StartGame(_teams);
+                        break;
+                    case "2":
+                        DisplayTeamRecords();
+                        break;
+                    case "3":
+                        SelectTeam();
+                        break;
+                    case "4":
+                        CreateTeam();
+                        break;
+                    case "exit":
+                    case "EXIT":
+                    case "5":
+                        continueToRun = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please enter a valid selection\n" +
+                            "Press any key to continue...");
+                        Console.ReadKey();
+                        break;
+                }
+            }
+
+            Console.Clear();
+            Console.WriteLine("Goodbye!");
+            Thread.Sleep(2000);
+
+            // returns a ConsoleKeyInfo:
+            // var key = Console.ReadKey();
+            // returns a string:
+            // Console.ReadLine();
+        }
+        
+        public void StartGame(TeamRepository _team)
+        {
+            //Team Spurs = new Team("Spurs", SpursRecord, SpursRoster);
+            //Team Arsenal = new Team("Scum", ScumRecord, ArseRoster);
+            //Game game = new Game(teamRepository; 
+            Game game = new Game(_team.GetTeamByName("Spurs"), _team.GetTeamByName("Scum"));
+            game.PlayGame();
         }
 
-        public void Seeding()
+        public void DisplayTeamRecords()
         {
+        }
+
+        public void SelectTeam()
+        {
+
+        }
+
+        public void CreateTeam()
+        {
+
+        }
+
+        public TeamRepository Seeding()
+        {
+            TeamRepository teamRepository  = new TeamRepository();
+
             List<int> SpursRecord = new List<int> { 1, 0, 0 };
             List<int> ScumRecord = new List<int> { 0, 1, 0 };
+            /*
 
-            Team one = new Team("Spurs", SpursRecord, 10);
-            Team two = new Team("Scum", ScumRecord, 4);
+            Team one = new Team("Spurs", SpursRecord, SpursRoster);
+            Team two = new Team("Scum", ScumRecord, ArseRoster);
 
             Game game = new Game(one, two);
-            /*
+            Console.WriteLine(two.PowerRanking);
+            Console.WriteLine(one.PowerRanking);
+            Console.ReadKey();
+            game.PlayGame();
             game.Goal();
             game.YellowCard();
             game.CheckTime();
-            */
-            game.PlayGame();
             Position position = Position.Forward;
             Console.WriteLine(position);
             Console.ReadKey();
-            Player player = new Player(position, 6, "Harry", "Stiles", "13");
-            Console.WriteLine(player.PlayerNumber + "\n" + player.FName);
+            Player player = new Player(position, 6, "Harry Kane", "13");
+            Console.WriteLine(player.PlayerNumber + "\n" + player.FullName);
+            */
+            List<Player> SpursRoster = new List<Player>()
+        {
+            new Player(Position.Forward, 7, "Lucas Moura", "27"),
+            //new Player(Position.Forward, 6, "Stephen Bergwijn", "23"),
+            new Player(Position.Forward, 9, "Heung-min Son", "7"),
+            new Player(Position.Midfielder, 9, "Pierre Hojbjerg", "26"),
+            new Player(Position.Midfielder, 8, "Giovanni Lo Celso", "18"),
+            new Player(Position.Midfielder, 9, "Oliver Skipp", "29"),
+            new Player(Position.Midfielder, 7, "Tanguy Ndombele", "28"),
+            new Player(Position.Defender, 7, "Ben Davies", "33"),
+            new Player(Position.Defender, 7, "Joe Rodon", "14"),
+            new Player(Position.Defender, 8, "Sergio Reguilon", "3"),
+            new Player(Position.Defender, 9, "Christian Romero", "4"),
+            new Player(Position.Goalkeeper, 9, "Hugo Lloris", "1"),
+        };
+
+            List<Player> ArseRoster = new List<Player>()
+        {
+            new Player(Position.Forward, 7, "Alexandre Lacazette", "9"),
+            //new Player(Position.Forward, 5, "Willian", "12"),
+            new Player(Position.Forward, 7, "Nicolas Pepe", "19"),
+            new Player(Position.Midfielder, 6, "Granit Xhaka", "34"),
+            new Player(Position.Midfielder, 4, "Mohamed Elneny", "25"),
+            new Player(Position.Midfielder, 8, "Emile Smith-Rowe", "10"),
+            new Player(Position.Midfielder, 7, "Thomas Partey", "5"),
+            new Player(Position.Defender, 6, "Hector Bellerin", "2"),
+            new Player(Position.Defender, 8, "Kieran Tierney", "3"),
+            new Player(Position.Defender, 7, "Gabriel", "6"),
+            new Player(Position.Defender, 6, "Ben White", "4"),
+            new Player(Position.Goalkeeper, 9, "Bernd Leno", "1"),
+        };
+
+
+            Player Kane = new Player(Position.Forward, 9, "Harry Kane", "10");
+            Player Bergwijn = new Player(Position.Forward, 6, "Stephen Bergwijn", "23");
+            Player Son = new Player(Position.Forward, 9, "Heung-min Son", "7");
+            Player Hojbjerg = new Player(Position.Midfielder, 9, "Pierre Hojbjerg", "26");
+            Player LoCelso = new Player(Position.Midfielder, 8, "Giovanni Lo Celso", "18");
+            Player Skipp = new Player(Position.Midfielder, 9, "Oliver Skipp", "29");
+            Player Ndombele = new Player(Position.Midfielder, 7, "Tanguy Ndombele", "28");
+            Player Davies = new Player(Position.Defender, 7, "Ben Davies", "33");
+            Player Rodon = new Player(Position.Defender, 7, "Joe Rodon", "14");
+            Player Reguilon = new Player(Position.Defender, 8, "Sergio Reguilon", "3");
+            Player Romero = new Player(Position.Defender, 9, "Christian Romero", "4");
+            Player Lloris = new Player(Position.Goalkeeper, 9, "Hugo Lloris", "1");
+
+
+            Team Spurs = new Team("Spurs", SpursRecord, SpursRoster);
+            Team Arsenal = new Team("Scum", ScumRecord, ArseRoster);
+
+            teamRepository.AddTeamToRepository(Arsenal);
+            teamRepository.AddTeamToRepository(Spurs);
+
+            teamRepository.ShowTeams();
+
+            return teamRepository;
+            //teamRepository.GetTeamByName("asdf");
         }
     }
 }
