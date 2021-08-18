@@ -148,11 +148,6 @@ namespace SoccerGame
             else if (home == 2)
             {
                 Console.WriteLine(new string('-', stringLength));
-                Console.WriteLine("\nThat sure was something!");
-            }
-            else if (home == 3)
-            {
-                Console.WriteLine(new string('-', stringLength));
                 RedCard();
             }
             else if (home > 12)
@@ -160,9 +155,19 @@ namespace SoccerGame
                 YellowCard();
                 Console.WriteLine(new string('-', stringLength));
             }
-            else
+            else if(home > 2 && home < 9)
             {
-                string[] flavorText = text.Split('|');
+                string[] flavor = text.Split('~');
+                string[] flavorText = flavor[0].Split('|');
+                /*
+                foreach (string item in flavorText)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.ReadKey();
+                string flavorText = string.Join("|", flavor[0]);
+                string[] flavorFlavorText = flavorText
+                */
                 int i = eventChance.Next(0, flavorText.Length);
                 Console.WriteLine($"\n{flavorText[i]}\n");
                 Console.WriteLine(new string('-', stringLength));
