@@ -1,0 +1,7 @@
+C:\Users\bryso\source\repos\SoccerGame\obj\Debug\SoccerGame.csproj.AssemblyReference.cache
+C:\Users\bryso\source\repos\SoccerGame\obj\Debug\SoccerGame.csproj.CoreCompileInputs.cache
+C:\Users\bryso\source\repos\SoccerGame\bin\Debug\SoccerGame.exe.config
+C:\Users\bryso\source\repos\SoccerGame\bin\Debug\SoccerGame.exe
+C:\Users\bryso\source\repos\SoccerGame\bin\Debug\SoccerGame.pdb
+C:\Users\bryso\source\repos\SoccerGame\obj\Debug\SoccerGame.exe
+C:\Users\bryso\source\repos\SoccerGame\obj\Debug\SoccerGame.pdb
