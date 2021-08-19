@@ -17,7 +17,7 @@ namespace SoccerGame
             Menu(_teams);
         }
         
-        public void Menu(TeamRepository _teams)
+        public void Menu(TeamRepository teams)
         {
             bool continueToRun = true;
             while (continueToRun)
@@ -28,8 +28,8 @@ namespace SoccerGame
                 // LF = Line Feed
                 Console.WriteLine("Menu:\n" +
                     "1. Start a new game\n" +
-                    "2. Display team records\n" +
-                    "3. Select an exsisting team\n" +
+                    "2. Display team rosters\n" +
+                    "3. Show team records\n" +
                     "4. Create a new team\n" +
                     "5. Exit");
 
@@ -38,16 +38,16 @@ namespace SoccerGame
                 switch (userInput)
                 {
                     case "1":
-                        StartGame(_teams);
+                        StartGame(teams);
                         break;
                     case "2":
-                        DisplayTeamRecords();
+                        teams.TeamRosters(teams);
                         break;
                     case "3":
-                        SelectTeam();
+                        ShowTeamRecords(teams);
                         break;
                     case "4":
-                        CreateTeam();
+                        //CreateTeam();
                         break;
                     case "exit":
                     case "EXIT":
@@ -72,35 +72,43 @@ namespace SoccerGame
             // Console.ReadLine();
         }
         
-        public void StartGame(TeamRepository _team)
+        public void ShowTeamRecords(TeamRepository teams)
+        {
+            foreach (Team team in teams._teams)
+            {
+                Console.WriteLine(team.TeamName);
+                team.FormatRecord();
+                Thread.Sleep(400);
+            }
+            Console.ReadKey();
+        }
+
+
+
+        public void StartGame(TeamRepository team)
         {
             //Team Spurs = new Team("Spurs", SpursRecord, SpursRoster);
             //Team Arsenal = new Team("Scum", ScumRecord, ArseRoster);
             //Game game = new Game(teamRepository; 
-            Game game = new Game(_team.GetTeamByName("Spurs"), _team.GetTeamByName("Scum"));
+            Game game = new Game(team.GetTeamByName("Spurs"), team.GetTeamByName("Arsenal"));
             game.PlayGame();
         }
 
-        public void DisplayTeamRecords()
-        {
-        }
+        
 
-        public void SelectTeam()
-        {
-
-        }
-
+        /*
         public void CreateTeam()
         {
 
         }
-
+        */
         public TeamRepository Seeding()
         {
             TeamRepository teamRepository  = new TeamRepository();
 
             List<int> SpursRecord = new List<int> { 1, 0, 0 };
             List<int> ScumRecord = new List<int> { 0, 1, 0 };
+            List<int> ChelseaRecord = new List<int> { 0, 0, 1 };
             /*
 
             Team one = new Team("Spurs", SpursRecord, SpursRoster);
@@ -121,7 +129,7 @@ namespace SoccerGame
             Console.WriteLine(player.PlayerNumber + "\n" + player.FullName);
             */
             List<Player> SpursRoster = new List<Player>()
-        {
+            {
             new Player(Position.Forward, 7, "Lucas Moura", "27"),
             //new Player(Position.Forward, 6, "Stephen Bergwijn", "23"),
             new Player(Position.Forward, 9, "Heung-min Son", "7"),
@@ -134,10 +142,10 @@ namespace SoccerGame
             new Player(Position.Defender, 8, "Sergio Reguilon", "3"),
             new Player(Position.Defender, 9, "Christian Romero", "4"),
             new Player(Position.Goalkeeper, 9, "Hugo Lloris", "1"),
-        };
+            };
 
             List<Player> ArseRoster = new List<Player>()
-        {
+            {
             new Player(Position.Forward, 7, "Alexandre Lacazette", "9"),
             //new Player(Position.Forward, 5, "Willian", "12"),
             new Player(Position.Forward, 7, "Nicolas Pepe", "19"),
@@ -150,9 +158,26 @@ namespace SoccerGame
             new Player(Position.Defender, 7, "Gabriel", "6"),
             new Player(Position.Defender, 6, "Ben White", "4"),
             new Player(Position.Goalkeeper, 9, "Bernd Leno", "1"),
-        };
+            };
 
 
+            List<Player> ChelseaRoster = new List<Player>()
+            {
+                new Player(Position.Forward, 3, "Timo Werner", "11"),
+                new Player(Position.Forward, 10, "Christian Pulisic", "10"),
+                new Player(Position.Forward, 8, "Romelu Luckaku", "9"),
+                new Player(Position.Midfielder, 9, "N'Golo Kante", "7"),
+                new Player(Position.Midfielder, 7, "Jorgino", "5"),
+                new Player(Position.Midfielder, 7, "Mason Mount", "19"),
+                new Player(Position.Midfielder, 6, "Mateo Kovacic", "8"),
+                new Player(Position.Defender, 8, "Thiago Silva", "6"),
+                new Player(Position.Defender, 2, "Marcos Alonso", "3"),
+                new Player(Position.Defender, 7, "Cesar Azpilicueta", "28"),
+                new Player(Position.Defender, 7, "Reece James", "24"),
+                new Player(Position.Goalkeeper, 4, "Kepa Arrizabalaga", "1"),
+            };
+
+            /*
             Player Kane = new Player(Position.Forward, 9, "Harry Kane", "10");
             Player Bergwijn = new Player(Position.Forward, 6, "Stephen Bergwijn", "23");
             Player Son = new Player(Position.Forward, 9, "Heung-min Son", "7");
@@ -165,18 +190,19 @@ namespace SoccerGame
             Player Reguilon = new Player(Position.Defender, 8, "Sergio Reguilon", "3");
             Player Romero = new Player(Position.Defender, 9, "Christian Romero", "4");
             Player Lloris = new Player(Position.Goalkeeper, 9, "Hugo Lloris", "1");
-
+            */
 
             Team Spurs = new Team("Spurs", SpursRecord, SpursRoster);
-            Team Arsenal = new Team("Scum", ScumRecord, ArseRoster);
+            Team Arsenal = new Team("Arsenal", ScumRecord, ArseRoster);
+            Team Chelsea = new Team("Chelsea", ChelseaRecord, ChelseaRoster);
 
             teamRepository.AddTeamToRepository(Arsenal);
             teamRepository.AddTeamToRepository(Spurs);
+            teamRepository.AddTeamToRepository(Chelsea);
 
-            teamRepository.ShowTeams();
+            //teamRepository.ShowTeams();
 
             return teamRepository;
-            //teamRepository.GetTeamByName("asdf");
         }
     }
 }

@@ -23,6 +23,11 @@ namespace SoccerGame
             PlayerNumber = playerNumber;
         }
 
+        public void ShowPlayerInfo()
+        {
+            Console.WriteLine($"\n{FullName} | {PlayerPosition} | Power Ranking:{PowerRanking} | No. {PlayerNumber}");
+        }
+
         /*Position position = Forward;
          * Player genericPlayer = new Player(position, 6, "Bob", "Deer", "3") {
          * PlayerPosition = position;

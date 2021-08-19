@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SoccerGame
 {
     public class TeamRepository
     {
-        private readonly List<Team> _teams = new List<Team>();
+        public readonly List<Team> _teams = new List<Team>();
 
         //public TeamRepository() { }
 
@@ -28,6 +29,20 @@ namespace SoccerGame
             foreach (Team team in _teams)
             {
                 Console.WriteLine(team.TeamName);
+                Console.ReadKey();
+            }
+        }
+
+        public void TeamRosters(TeamRepository teamRepository)
+        {
+            foreach (Team team in teamRepository._teams)
+            {
+                Console.WriteLine($"\n{team.TeamName}");
+                foreach (Player player in team.Roster)
+                {
+                    player.ShowPlayerInfo();
+                    Thread.Sleep(300);
+                }
                 Console.ReadKey();
             }
         }
