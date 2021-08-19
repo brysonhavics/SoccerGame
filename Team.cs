@@ -27,7 +27,6 @@ namespace SoccerGame
                 //Console.WriteLine(Roster.Count());
                 //Console.ReadKey();
                 return total / Roster.Count();
-
                 }
             set { }
             }
