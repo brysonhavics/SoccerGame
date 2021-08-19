@@ -15,22 +15,7 @@ namespace SoccerGame
         public string TeamName { get; set; }
         public List<Player> Roster { get; set; }
         public List<int> Record { get; set; }
-        public int PowerRanking {
-                get
-                {
-                int total = 0;
-                foreach(Player player in Roster)
-                {
-                    total += player.PowerRanking;
-                    //Console.WriteLine(total);
-                }
-                //Console.WriteLine(Roster.Count());
-                //Console.ReadKey();
-                return total / Roster.Count();
-                }
-            set { }
-            }
-
+        public int PowerRanking { get; set; }
 
         public Team() { }
         public Team(string name, List<int> record, List<Player> roster)
@@ -38,11 +23,25 @@ namespace SoccerGame
             TeamName = name;
             Record = record;
             Roster = roster;
+            PowerRanking = GetTeamPowerRanking();
         }
 
         public void FormatRecord()
         {
             Console.WriteLine($"Wins: {Record[0]} Losses: {Record[1]} Ties: {Record[2]}");
+        }
+
+        public int GetTeamPowerRanking()
+        {
+            int total = 0;
+            foreach (Player player in Roster)
+            {
+                total += player.PowerRanking;
+                //Console.WriteLine(total);
+            }
+            //Console.WriteLine(Roster.Count());
+            //Console.ReadKey();
+            return total / Roster.Count();
         }
         /*
         public void TeamRosters(TeamRepository teamRepository)
@@ -56,6 +55,7 @@ namespace SoccerGame
             }
         }
         */
+
     }
 
     public class Game
@@ -178,7 +178,7 @@ namespace SoccerGame
                 int i = eventChance.Next(0, flavorText.Length);
                 Console.WriteLine($"\n{flavorText[i]}");
                 Console.WriteLine($"\n{Home.TeamName} received a red card!");
-                Home.PowerRanking -= 3;
+                Home.PowerRanking = 4;
                 Console.ReadKey();
             }
             else if (homeCards.Next(0, Home.PowerRanking) < awayCards.Next(0, Away.PowerRanking))
@@ -189,7 +189,7 @@ namespace SoccerGame
                 int i = eventChance.Next(0, flavorText.Length);
                 Console.WriteLine($"\n{flavorText[i]}");
                 Console.WriteLine($"\n{Away.TeamName} received a red card!");
-                Away.PowerRanking -= 3;
+                Away.PowerRanking = 4;
                 Console.ReadKey();
             }
             else
@@ -214,30 +214,28 @@ namespace SoccerGame
             }
             else if (home == 2)
             {
-                Console.WriteLine(new string('-', stringLength));
                 RedCard();
+                Console.WriteLine(new string('-', stringLength));
             }
-            else if (home > 12)
+            else if (home == 13 || home == 14)
             {
                 YellowCard();
                 Console.WriteLine(new string('-', stringLength));
             }
-            else if(home > 2 && home < 9)
+            else if(home > 2 && home < 7)
             {
                 string[] flavor = text.Split('~');
                 string[] flavorText = flavor[0].Split('|');
                 int i = eventChance.Next(0, flavorText.Length);
                 Console.WriteLine($"\n{flavorText[i]}");
                 Console.WriteLine(new string('-', stringLength));
-                /*
-                foreach (string item in flavorText)
-                {
-                    Console.WriteLine(item);
-                }
-                Console.ReadKey();
-                string flavorText = string.Join("|", flavor[0]);
-                string[] flavorFlavorText = flavorText
-                */
+            }
+            else if (home == 7 || home == 8)
+            {
+                string[] flavor = text.Split('~');
+                string[] flavorText = flavor[3].Split('|');
+                int i = eventChance.Next(0, flavorText.Length);
+                Console.WriteLine($"\n{flavorText[i]}");
             }
         }
 

@@ -169,7 +169,7 @@ namespace SoccerGame
                 new Player(Position.Midfielder, 9, "N'Golo Kante", "7"),
                 new Player(Position.Midfielder, 7, "Jorgino", "5"),
                 new Player(Position.Midfielder, 7, "Mason Mount", "19"),
-                new Player(Position.Midfielder, 6, "Mateo Kovacic", "8"),
+                //new Player(Position.Midfielder, 6, "Mateo Kovacic", "8"),
                 new Player(Position.Defender, 8, "Thiago Silva", "6"),
                 new Player(Position.Defender, 2, "Marcos Alonso", "3"),
                 new Player(Position.Defender, 7, "Cesar Azpilicueta", "28"),
