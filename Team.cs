@@ -66,6 +66,9 @@ namespace SoccerGame
         public int AwayGoals { get; set; } = 0;
         public int HomeCards { get; set; } = 0;
         public int AwayCards { get; set; } = 0;
+
+        public int HomeBet { get; set; } = 0;
+        public int AwayBet { get; set; } = 0;
         public int Time { get; set; } = 90;
         public bool GameOver { get; set; } = false;
 
@@ -207,22 +210,22 @@ namespace SoccerGame
             int stringLength = 40;
             //Random eventChanceComparison = new Random();
             //int away = eventChanceComparison.Next(0, 10);
-            if (home == 1)
+            if (home == 1 || home == 2)
             {
                 Goal();
                 Console.WriteLine(new string('-', stringLength));
             }
-            else if (home == 2)
+            else if (home == 3)
             {
                 RedCard();
                 Console.WriteLine(new string('-', stringLength));
             }
-            else if (home == 13 || home == 14)
+            else if (home > 3 || home < 5)
             {
                 YellowCard();
                 Console.WriteLine(new string('-', stringLength));
             }
-            else if(home > 2 && home < 7)
+            else if(home > 7 && home < 12)
             {
                 string[] flavor = text.Split('~');
                 string[] flavorText = flavor[0].Split('|');
@@ -230,7 +233,7 @@ namespace SoccerGame
                 Console.WriteLine($"\n{flavorText[i]}");
                 Console.WriteLine(new string('-', stringLength));
             }
-            else if (home == 7 || home == 8)
+            else if (home > 12 && home < 17)
             {
                 string[] flavor = text.Split('~');
                 string[] flavorText = flavor[3].Split('|');
@@ -272,8 +275,50 @@ namespace SoccerGame
             Console.ReadKey();
         }
 
+        public void PlaceBet(int bet)
+        {
+            bool betPlaced = false;
+            while (!betPlaced)
+            {
+                Console.WriteLine("\nPlace bet here: home/away team\n");
+                string pick = Console.ReadLine();
+                pick.ToLower();
+                if (pick == "home")
+                {
+                    HomeBet = bet;
+                    betPlaced = true;
+                }
+                else if (pick == "away")
+                {
+                    AwayBet = bet;
+                    betPlaced = true;
+                }
+                else
+                {
+                    Console.WriteLine("\nSelect a team please.");
+                }
+            }
+        }
+
+        public int CheckBet()
+        {
+            if (HomeGoals > AwayGoals && HomeBet != 0)
+            {
+                return HomeBet * 2;
+            }
+            else if (HomeGoals < AwayGoals && AwayBet != 0)
+            {
+                return AwayBet * 2;
+            }
+            else
+                return AwayBet + HomeBet;
+        }
         public void PlayGame()
         {
+            Console.WriteLine("Enter your wager(int)");
+            string bet = Console.ReadLine();
+            int betPlace = Convert.ToInt32(bet);
+            PlaceBet(betPlace);
             ShowTeamRosters();
             Console.WriteLine("\n---Kickoff!---");
             Random eventChance = new Random(); 
@@ -282,15 +327,14 @@ namespace SoccerGame
             {
                 //Random eventChance = new Random();
                 //int num = eventChance.Next(0, 15);
-                EventChecker(eventChance.Next(0, 15));
+                EventChecker(eventChance.Next(0, 25));
                 CheckTime();
-                Thread.Sleep(500);
+                Thread.Sleep(200);
                 isPlaying = GameOver;
             }
-            Console.WriteLine(Home.PowerRanking);
-            Console.WriteLine(Away.PowerRanking);
-            Console.ReadKey();
+            CheckBet();
         }
+
 
 
         //string text = File.ReadAllText(@"C:\Users\bryso\Documents\ElevenFifty Assignments\100SD\Drufsnor\game.txt");

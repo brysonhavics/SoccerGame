@@ -10,7 +10,7 @@ namespace SoccerGame
     public class ProgramUI
     {     
         public ProgramUI() { }
-
+        public int betStart = 0;
         public void Run()
         {
             TeamRepository _teams = Seeding();
@@ -19,6 +19,7 @@ namespace SoccerGame
         
         public void Menu(TeamRepository teams)
         {
+            
             bool continueToRun = true;
             while (continueToRun)
             {
@@ -82,9 +83,20 @@ namespace SoccerGame
             }
             Console.ReadKey();
         }
-
-
-
+        /*
+        public int PlaceBet(int bet)
+        {
+            bool betPlaced = false;
+            while(!betPlaced)
+            Console.WriteLine("Place bet here: home/away team");
+            string pick = Console.ReadLine();
+            pick.ToLower();
+            if (pick == "home")
+            {
+                betPlaced = bet;
+            }
+        }
+        */
         public void StartGame(TeamRepository team)
         {
             //Team Spurs = new Team("Spurs", SpursRecord, SpursRoster);
@@ -92,6 +104,9 @@ namespace SoccerGame
             //Game game = new Game(teamRepository; 
             Game game = new Game(team.GetTeamByName("Spurs"), team.GetTeamByName("Arsenal"));
             game.PlayGame();
+            betStart = game.CheckBet();
+            Console.WriteLine($"\nYour bet allowance is now: {betStart}");
+            Console.ReadKey();
         }
 
         
